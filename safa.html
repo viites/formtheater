@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Join Our Theatre Club</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="form-box">
+        <div class="header">
+            <img src="Gemini_Generated_Image_x5cr1nx5cr1nx5cr.png" alt="">
+            <h1>Join Our Theatre Club</h1>
+            <p>Do you have experience in theatre? If yes, please specify</p>
+        </div>
+
+        <form>
+
+            <div class="group">
+                <label><i class="fa-solid fa-user"></i> Full name</label>
+                <input type="text" required>
+            </div>
+
+            <div class="group">
+                <label><i class="fa-solid fa-envelope"></i> Email</label>
+                <input type="email" required>
+            </div>
+
+            <div class="group">
+                <label><i class="fa-solid fa-phone"></i> Phone number</label>
+                <input type="tel" required>
+            </div>
+
+            <fieldset>
+                <legend>Level of study / Year</legend>
+                <div class="option"><input type="radio" name="year"> 1st year</div>
+                <div class="option"><input type="radio" name="year"> 2nd year</div>
+                <div class="option"><input type="radio" name="year"> 3rd year</div>
+                <div class="option"><input type="radio" name="year"> 4th year</div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Do you have experience in theatre? If yes?</legend>
+                <div class="option">
+                    <input type="radio" name="team" onclick="toggleTeam(true)"> Yes
+                </div>
+                <div class="option">
+                    <input type="radio" name="team" onclick="toggleTeam(false)"> No
+                </div>
+            </fieldset>
+
+            <div id="teamBox" class="group">
+                <label><i class="fa-solid fa-people-group"></i>  please specify...</label>
+                <input type="text">
+            </div>
+
+            <button type="submit">CONFIRM</button>
+
+        </form>
+    </div>
+
+    <script>
+        function toggleTeam(show) {
+            document.getElementById("teamBox").style.display = show ? "block" : "none";
+        }
+    </script>
+
+</body>
+
+</html>
