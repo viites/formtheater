@@ -19,44 +19,44 @@
             <p>Do you have experience in theatre? If yes, please specify</p>
         </div>
 
-        <form>
+        <form id="myForm">
 
             <div class="group">
                 <label><i class="fa-solid fa-user"></i> Full name</label>
-                <input type="text" required>
+                <input type="text" name="fullname" required>
             </div>
 
             <div class="group">
                 <label><i class="fa-solid fa-envelope"></i> Email</label>
-                <input type="email" required>
+                <input type="email" name="email" required>
             </div>
 
             <div class="group">
                 <label><i class="fa-solid fa-phone"></i> Phone number</label>
-                <input type="tel" required>
+                <input type="tel" name="phone" required>
             </div>
 
             <fieldset>
                 <legend>Level of study / Year</legend>
-                <div class="option"><input type="radio" name="year"> 1st year</div>
-                <div class="option"><input type="radio" name="year"> 2nd year</div>
-                <div class="option"><input type="radio" name="year"> 3rd year</div>
-                <div class="option"><input type="radio" name="year"> 4th year</div>
+                <div class="option"><input type="radio" name="year" value="1st"> 1st year</div>
+                <div class="option"><input type="radio" name="year" value="2nd"> 2nd year</div>
+                <div class="option"><input type="radio" name="year" value="3rd"> 3rd year</div>
+                <div class="option"><input type="radio" name="year" value="4th"> 4th year</div>
             </fieldset>
 
             <fieldset>
                 <legend>Do you have experience in theatre? If yes?</legend>
                 <div class="option">
-                    <input type="radio" name="team" onclick="toggleTeam(true)"> Yes
+                    <input type="radio" name="team" value="yes" onclick="toggleTeam(true)"> Yes
                 </div>
                 <div class="option">
-                    <input type="radio" name="team" onclick="toggleTeam(false)"> No
+                    <input type="radio" name="team" value="no" onclick="toggleTeam(false)"> No
                 </div>
             </fieldset>
 
             <div id="teamBox" class="group">
                 <label><i class="fa-solid fa-people-group"></i>  please specify...</label>
-                <input type="text">
+                <input type="text" name="experience">
             </div>
 
             <button type="submit">CONFIRM</button>
@@ -68,6 +68,28 @@
         function toggleTeam(show) {
             document.getElementById("teamBox").style.display = show ? "block" : "none";
         }
+
+        document.getElementById("myForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            console.log("Form Data:", data);
+            alert(`Thank you ${data.fullname}! We received your information.`);
+            
+            // Send to server
+            fetch('/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => console.log("Server response:", result))
+            .catch(error => console.error("Error:", error));
+        });
     </script>
 
 </body>

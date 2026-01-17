@@ -5,7 +5,25 @@ const path = require('path');
 const PORT = 3000;
 
 const server = http.createServer((req, res) => {
-    let filePath = path.join(__dirname, req.url === '/' ? 'safa.html' : req.url);
+    // Handle form submission
+    if (req.method === 'POST' && req.url === '/submit') {
+        let body = '';
+        req.on('data', chunk => {
+            body += chunk.toString();
+        });
+        req.on('end', () => {
+            const data = JSON.parse(body);
+            console.log("Received form data:", data);
+            
+            // Send response back
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ success: true, message: "Data received!" }));
+        });
+        return;
+    }
+
+    // Serve static files
+    let filePath = path.join(__dirname, req.url === '/' ? 'index.html' : req.url);
     
     const extname = String(path.extname(filePath)).toLowerCase();
     const mimeTypes = {
