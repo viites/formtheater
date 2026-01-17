@@ -15,9 +15,38 @@ const server = http.createServer((req, res) => {
             const data = JSON.parse(body);
             console.log("Received form data:", data);
             
-            // Send response back
+            // Save to submissions.json file
+            const submissionsFile = path.join(__dirname, 'submissions.json');
+            let submissions = [];
+            
+            // Read existing submissions
+            if (fs.existsSync(submissionsFile)) {
+                try {
+                    const fileContent = fs.readFileSync(submissionsFile, 'utf-8');
+                    submissions = JSON.parse(fileContent);
+                } catch (err) {
+                    console.error("Error reading submissions.json:", err);
+                }
+            }
+            
+            // Add new submission with timestamp
+            submissions.push({
+                ...data,
+                timestamp: new Date().toISOString(),
+                id: submissions.length + 1
+            });
+            
+            // Save back to file
+            fs.writeFile(submissionsFile, JSON.stringify(submissions, null, 2), (err) => {
+                if (err) {
+                    console.error("Error saving data:", err);
+                } else {
+                    console.log("✓ Data saved to submissions.json");
+                }
+            });
+            
             res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ success: true, message: "Data received!" }));
+            res.end(JSON.stringify({ success: true, message: "Data received and saved!" }));
         });
         return;
     }
