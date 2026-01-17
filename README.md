@@ -28,7 +28,7 @@ git push -u origin main
 - Your site will be live at `https://your-username.github.io/` (or your repo name)
 
 ## Files Included
-- `safa.html` - Main signup form
+- `index.html` - Main signup form
 - `style.css` - Styling
 - `server.js` - Optional local development server (run with `node server.js`)
 
